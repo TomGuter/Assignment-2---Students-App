@@ -23,6 +23,5 @@ class StudentsDetailsActivity : AppCompatActivity() {
             insets
         }
 
-
     }
 }

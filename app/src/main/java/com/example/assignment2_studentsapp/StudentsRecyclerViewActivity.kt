@@ -17,8 +17,11 @@ import com.example.assignment2_studentsapp.model.StudentRepository
 
 class StudentsRecyclerViewActivity : AppCompatActivity() {
 
+    private lateinit var students: MutableList<Student>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_students_recycler_view)
@@ -28,11 +31,27 @@ class StudentsRecyclerViewActivity : AppCompatActivity() {
             insets
         }
 
+        findViewById<TextView>(R.id.toolbar_title).text = "Students List"
+        students = StudentRepository.getStudents()
 
+
+        findViewById<RecyclerView>(R.id.students_list_activity_recycler_view).apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@StudentsRecyclerViewActivity)
+            adapter = StudentsRecyclerAdapter(students)
+        }
+
+        addStudentButton()
 
     }
 
+    private fun addStudentButton() {
+        findViewById<View>(R.id.add_new_student_button).setOnClickListener() {
+            val intent = Intent(this, AddStudentActivity::class.java)
+            startActivity(intent)
+        }
 
+    }
 
 
 }

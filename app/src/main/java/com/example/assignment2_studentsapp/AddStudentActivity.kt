@@ -25,6 +25,41 @@ class AddStudentActivity : AppCompatActivity() {
         }
 
 
+        val saveStudentButton: Button = findViewById(R.id.add_student_activity_save_button)
+        val cancelStudentButton: Button = findViewById(R.id.add_student_activity_cancel_button)
+        val backToStudentListTextView: TextView = findViewById(R.id.toolbar_title)
+        backToStudentListTextView.text = "<New Student"
+
+
+        val nameEditText: EditText = findViewById(R.id.add_student_activity_name_edit_text)
+        val idEditText: EditText = findViewById(R.id.add_student_activity_id_edit_text)
+        val phoneEditText: EditText = findViewById(R.id.add_student_activity_phone_edit_text)
+        val addressEditText: EditText = findViewById(R.id.add_student_activity_address_edit_text)
+        val isChecked: CheckBox = findViewById(R.id.add_student_activity_checkbox)
+
+        cancelStudentButton.setOnClickListener() {
+            finish()
+        }
+
+
+        saveStudentButton.setOnClickListener() {
+            val name = nameEditText.text.toString()
+            val id = idEditText.text.toString()
+            val phone = phoneEditText.text.toString()
+            val address = addressEditText.text.toString()
+            val newStudent = Student(name, id, phone, address, isChecked.isChecked)
+            StudentRepository.addStudent(newStudent)
+
+            val intent = Intent(this, StudentsRecyclerViewActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        backToStudentListTextView.setOnClickListener {
+            val intent = Intent(this, StudentsRecyclerViewActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        }
 
     }
 }
